@@ -6,26 +6,23 @@ import androidx.lifecycle.viewModelScope
 import com.spitzer.district8news.R
 import com.spitzer.district8news.core.BaseViewModel
 import com.spitzer.district8news.core.Event
+import com.spitzer.district8news.core.navigation.NavigationCommand
 import com.spitzer.district8news.core.network.ResultData
 import com.spitzer.district8news.core.repository.PostRepository
-import com.spitzer.district8news.core.repository.data.Category
 import com.spitzer.district8news.core.repository.data.Post
+import com.spitzer.district8news.ui.categoryfilteradapter.CategoryModel
 import com.spitzer.district8news.utils.extensions.filterCategories
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import javax.inject.Inject
-import kotlin.coroutines.CoroutineContext
 
 @HiltViewModel
 class MainViewModel @Inject constructor(
     private val repository: PostRepository
 ) : BaseViewModel() {
 
-    private val _categories = MutableLiveData<ArrayList<Category>>()
-    val categories: LiveData<ArrayList<Category>> = _categories
+    private val _categories = MutableLiveData<ArrayList<CategoryModel>>()
+    val categories: LiveData<ArrayList<CategoryModel>> = _categories
 
     private val _posts = MutableLiveData<Event<ArrayList<Post>>>()
     val posts: LiveData<Event<ArrayList<Post>>> = _posts
@@ -47,7 +44,14 @@ class MainViewModel @Inject constructor(
             if (categoriesResult.data == null || postsResult.data == null) {
                 _snackbarError.value = Event(R.string.snackbar_could_not_fetch)
             } else {
-                _categories.value = categoriesResult.data!!.filterCategories()
+                val filteredCategories = categoriesResult.data!!.filterCategories()
+                _categories.value = filteredCategories.mapIndexed { index, cat ->
+                    CategoryModel(
+                        cat,
+                        false,
+                        index == filteredCategories.size - 1
+                    )
+                } as ArrayList<CategoryModel>
                 _posts.value = Event(postsResult.data!!)
             }
 
@@ -61,7 +65,11 @@ class MainViewModel @Inject constructor(
         }
     }
 
-    fun onPostClicked(postPosition: Int) {
-
+    fun onPostClicked(postClicked: Post) {
+        val action = MainFragmentDirections
+            .actionMainFragmentToPostFragment(
+                postClicked
+            )
+        _navigation.value = Event(NavigationCommand.To(action))
     }
 }

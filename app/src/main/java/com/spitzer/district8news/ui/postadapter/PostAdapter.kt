@@ -1,4 +1,4 @@
-package com.spitzer.district8news.postadapter
+package com.spitzer.district8news.ui.postadapter
 
 import android.graphics.drawable.Drawable
 import android.view.LayoutInflater
@@ -15,13 +15,13 @@ class PostAdapter(
 ) : RecyclerView.Adapter<PostAdapter.ViewHolder>() {
 
     private var items: ArrayList<Post> = arrayListOf()
-    lateinit var onItemClick: (Int) -> Unit
+    lateinit var onItemClick: (Post) -> Unit
 
     override fun onCreateViewHolder(parent: ViewGroup, p1: Int): ViewHolder {
         val item =
             PostItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ViewHolder(item).listenToClick { position, _ ->
-            onItemClick(position)
+            onItemClick(items[position])
         }
     }
 
@@ -33,7 +33,7 @@ class PostAdapter(
         holder.bind(items[position])
     }
 
-    fun onItemClickFunction(itemClickFunction: (Int) -> Unit) {
+    fun onItemClickFunction(itemClickFunction: (Post) -> Unit) {
         onItemClick = itemClickFunction
     }
 
@@ -47,7 +47,7 @@ class PostAdapter(
     ) : RecyclerView.ViewHolder(itemBinding.root) {
         fun bind(item: Post) {
             itemBinding.postTitle.text = item.title.rendered
-            itemBinding.postLocation.text = "Delf -----"
+            itemBinding.postLocation.text = "Location ....."
             try {
                 Picasso.get()
                     .load(item.featuredMedia.first().href)

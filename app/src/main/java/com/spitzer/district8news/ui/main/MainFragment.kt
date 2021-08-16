@@ -14,7 +14,8 @@ import com.spitzer.district8news.R
 import com.spitzer.district8news.core.BaseFragment
 import com.spitzer.district8news.core.repository.data.Post
 import com.spitzer.district8news.databinding.MainFragmentBinding
-import com.spitzer.district8news.postadapter.PostAdapter
+import com.spitzer.district8news.ui.categoryfilteradapter.CategoryFilterAdapter
+import com.spitzer.district8news.ui.postadapter.PostAdapter
 import com.squareup.picasso.Picasso
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -62,16 +63,23 @@ class MainFragment : BaseFragment() {
                     binding.featuredPostTitle.text = posts.first().title.rendered
 
                     binding.featuredPostImage.setOnClickListener {
-                        viewModel.onPostClicked(1)
+                        viewModel.onPostClicked(posts.first())
                     }
                     binding.featuredPostTitle.setOnClickListener {
-                        viewModel.onPostClicked(1)
+                        viewModel.onPostClicked(posts.first())
                     }
                     binding.featuredPostTitleBackground.setOnClickListener {
-                        viewModel.onPostClicked(1)
+                        viewModel.onPostClicked(posts.first())
                     }
 
-                    postAdapter.updateData(posts.slice(IntRange(1, posts.size - 1)) as ArrayList<Post>)
+                    postAdapter.updateData(
+                        posts.slice(
+                            IntRange(
+                                1,
+                                posts.size - 1
+                            )
+                        ) as ArrayList<Post>
+                    )
                 }
             }
         })
@@ -81,7 +89,7 @@ class MainFragment : BaseFragment() {
         fallbackDrawableImage = resources.getDrawable(R.drawable.ic_broken_image_24)
 
         postAdapter = PostAdapter(fallbackDrawableImage)
-        postAdapter.onItemClickFunction { position -> viewModel.onPostClicked(position) }
+        postAdapter.onItemClickFunction { postClicked -> viewModel.onPostClicked(postClicked) }
         binding.postsRecyclerView.apply {
             layoutManager =
                 LinearLayoutManager(context, RecyclerView.VERTICAL, false)
@@ -98,6 +106,15 @@ class MainFragment : BaseFragment() {
                 bottomSheetDialog.dismiss()
             }
             bottomSheetDialog.setCancelable(false)
+
+            val categoriesAdapter = CategoryFilterAdapter(viewModel.categories.value!!)
+            val categoriesRecyclerView = view.findViewById<RecyclerView>(R.id.categoriesRecyclerView)
+            categoriesRecyclerView.apply {
+                layoutManager =
+                    LinearLayoutManager(context, RecyclerView.VERTICAL, false)
+                adapter = categoriesAdapter
+            }
+
             bottomSheetDialog.setContentView(view)
             bottomSheetDialog.show()
         }

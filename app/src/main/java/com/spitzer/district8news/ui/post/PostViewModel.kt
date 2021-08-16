@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.spitzer.district8news.core.BaseViewModel
 import com.spitzer.district8news.core.Event
+import com.spitzer.district8news.core.navigation.NavigationCommand
 import com.spitzer.district8news.core.repository.data.Post
 
 class PostViewModel : BaseViewModel() {
@@ -23,5 +24,9 @@ class PostViewModel : BaseViewModel() {
 
     fun viewLoaded() {
         _loading.value = Event(false)
+    }
+
+    fun navigateBack() {
+        _navigation.value = Event(NavigationCommand.Back)
     }
 }

@@ -40,6 +40,6 @@ class PostRepositoryImpl @Inject constructor(
 
     companion object {
         const val CURRENT_PAGE = 1
-        const val PAGE_SIZE = 100
+        const val PAGE_SIZE = 10
     }
 }
