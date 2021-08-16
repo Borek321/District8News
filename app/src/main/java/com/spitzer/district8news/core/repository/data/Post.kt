@@ -1,4 +1,29 @@
 package com.spitzer.district8news.core.repository.data
 
-class Post {
-}
+import android.os.Parcelable
+import com.google.gson.annotations.SerializedName
+import kotlinx.parcelize.Parcelize
+import java.util.*
+import kotlin.collections.ArrayList
+
+@Parcelize
+data class Post(
+    @SerializedName("id")
+    var id: Int,
+    @SerializedName("link")
+    var link: String = "",
+    @SerializedName("slug")
+    var slug: String = "",
+    @SerializedName("date")
+    var date: Date,
+    @SerializedName("featured_media")
+    var featuredMedia: Int = 0,
+    @SerializedName("title")
+    var title: PostTitle,
+    @SerializedName("content")
+    var postContent: PostContent,
+    @SerializedName("categories")
+    var categories: ArrayList<Int> = arrayListOf(),
+    @SerializedName("tags")
+    var tags: ArrayList<Int> = arrayListOf()
+) : Parcelable
