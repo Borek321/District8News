@@ -7,14 +7,50 @@
     android:layout_height="match_parent"
     tools:context=".ui.main.MainFragment">
 
+    <ImageView
+        android:id="@+id/featuredPostImage"
+        android:layout_width="match_parent"
+        android:layout_height="276dp"
+        android:scaleType="centerCrop"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:src="@drawable/post_image" />
+
+    <View
+        android:id="@+id/featuredPostTitleBackground"
+        android:layout_width="match_parent"
+        android:layout_height="99dp"
+        android:alpha="0.6"
+        android:background="@color/featuredPostTitleBackgroundColor"
+        app:layout_constraintBottom_toBottomOf="@+id/featuredPostImage"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
     <TextView
-        android:id="@+id/message"
+        android:id="@+id/featuredPostTitle"
+        style="@style/InterTextViewStyle.Headline"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="MainFragment"
+        android:layout_marginTop="11dp"
+        android:ellipsize="end"
+        android:maxLines="2"
+        android:paddingHorizontal="16dp"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/featuredPostTitleBackground"
+        tools:text="Featured article title can have up to two lines. Otherwise we will end the line when it becomes larger and larger and larger" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/postsRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/featuredPostImage"
+        tools:listitem="@layout/post_item"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

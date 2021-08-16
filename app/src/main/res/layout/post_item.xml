@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/postImage"
+        android:layout_width="110dp"
+        android:layout_height="75dp"
+        android:layout_marginVertical="8dp"
+        android:layout_marginStart="16dp"
+        android:scaleType="centerCrop"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:src="@drawable/post_image" />
+
+    <TextView
+        android:id="@+id/featuredPostTitle"
+        style="@style/InterTextViewStyle.Body1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginHorizontal="16dp"
+        android:textStyle="bold"
+        android:ellipsize="end"
+        android:maxLines="2"
+        android:textColor="@color/black"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/postImage"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/postLocation"
+        tools:text="Featured article title can have up to two lines. Otherwise we will end the line when it becomes larger and larger and larger" />
+
+    <TextView
+        android:id="@+id/postLocation"
+        style="@style/InterTextViewStyle.Caption2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:layout_marginBottom="16dp"
+        android:maxLines="1"
+        tools:text="Delft - 28 juli 2021"
+        android:textColor="@color/neutralDarkGray"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/featuredPostTitle"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/featuredPostTitle"/>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

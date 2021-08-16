@@ -9,5 +9,7 @@
     <color name="white">#FFFFFFFF</color>
 
     <color name="snackbarColor">#FF018786</color>
+    <color name="featuredPostTitleBackgroundColor">#FF000000</color>
+    <color name="neutralDarkGray">#949494</color>
 
 </resources>
