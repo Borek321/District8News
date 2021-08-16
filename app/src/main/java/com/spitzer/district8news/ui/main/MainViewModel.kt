@@ -35,7 +35,6 @@ class MainViewModel @Inject constructor(
     }
 
     private suspend fun fetchInitialData() {
-
         val categoriesResult = repository.getCategories()
         val postsResult = repository.getPosts()
 
@@ -65,11 +64,50 @@ class MainViewModel @Inject constructor(
         }
     }
 
+    fun getPostsByCategories() {
+        _loading.value = Event(true)
+        viewModelScope.launch {
+            fetchPostsByCategories()
+        }
+    }
+
+    private suspend fun fetchPostsByCategories() {
+        val selectedCategories = categories.value!!.filter { it.isSelected }
+        val postsResult:  ResultData<ArrayList<Post>?> = if (selectedCategories.isEmpty()) {
+            repository.getPosts()
+        } else {
+            repository.getPostsByCategories(
+                selectedCategories.map { it.category.id } as ArrayList<Int>
+            )
+        }
+
+        if (postsResult is ResultData.Success) {
+            _loading.value = Event(false)
+            if (postsResult.data == null) {
+                _snackbarError.value = Event(R.string.snackbar_could_not_fetch)
+            } else {
+                _posts.value = Event(postsResult.data!!)
+            }
+        } else {
+            _loading.value = Event(false)
+            if (postsResult.isNetworkError()) {
+                _snackbarError.value = Event(R.string.snackbar_network_error)
+            } else {
+                _snackbarError.value = Event(R.string.snackbar_error)
+            }
+        }
+    }
+
     fun onPostClicked(postClicked: Post) {
         val action = MainFragmentDirections
             .actionMainFragmentToPostFragment(
                 postClicked
             )
         _navigation.value = Event(NavigationCommand.To(action))
+    }
+
+    fun toggleCategorySelection(categoryIndex: Int) {
+        _categories.value!![categoryIndex].isSelected =
+            !_categories.value!![categoryIndex].isSelected
     }
 }

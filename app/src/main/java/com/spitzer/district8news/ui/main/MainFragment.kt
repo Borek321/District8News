@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import androidx.appcompat.widget.AppCompatButton
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -101,22 +102,37 @@ class MainFragment : BaseFragment() {
         binding.toolbarFilterTextView.setOnClickListener {
 
             val view = layoutInflater.inflate(R.layout.categories_filter, null)
+
             val btnClose = view.findViewById<ImageView>(R.id.closeBottomsheet)
+            val categoriesRecyclerView =
+                view.findViewById<RecyclerView>(R.id.categoriesRecyclerView)
+            val btnFilter = view.findViewById<AppCompatButton>(R.id.filterButton)
+
             btnClose.setOnClickListener {
                 bottomSheetDialog.dismiss()
             }
-            bottomSheetDialog.setCancelable(false)
 
             val categoriesAdapter = CategoryFilterAdapter(viewModel.categories.value!!)
-            val categoriesRecyclerView = view.findViewById<RecyclerView>(R.id.categoriesRecyclerView)
+            categoriesAdapter.onItemClickFunction { categoryIndex ->
+                viewModel.toggleCategorySelection(categoryIndex)
+                categoriesAdapter.updateData(viewModel.categories.value!!)
+            }
             categoriesRecyclerView.apply {
                 layoutManager =
                     LinearLayoutManager(context, RecyclerView.VERTICAL, false)
                 adapter = categoriesAdapter
             }
 
-            bottomSheetDialog.setContentView(view)
-            bottomSheetDialog.show()
+            btnFilter.setOnClickListener {
+                viewModel.getPostsByCategories()
+                bottomSheetDialog.dismiss()
+            }
+
+            bottomSheetDialog.apply {
+                setCancelable(false)
+                setContentView(view)
+                show()
+            }
         }
 
         viewModel.getInitialConfiguration()
