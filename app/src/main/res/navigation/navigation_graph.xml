@@ -9,6 +9,22 @@
     <fragment
         android:id="@+id/MainFragment"
         android:name="com.spitzer.district8news.ui.main.MainFragment"
-        tools:layout="@layout/main_fragment"></fragment>
+        tools:layout="@layout/main_fragment">
+        <action
+            android:id="@+id/action_MainFragment_to_PostFragment"
+            app:destination="@id/PostFragment">
+            <argument
+                android:name="post"
+                app:argType="com.spitzer.district8news.core.repository.data.Post" />
+        </action>
+    </fragment>
+    <fragment
+        android:id="@+id/PostFragment"
+        android:name="com.spitzer.district8news.ui.post.PostFragment"
+        tools:layout="@layout/post_fragment">
+        <argument
+            android:name="post"
+            app:argType="com.spitzer.district8news.core.repository.data.Post" />
+    </fragment>
 
 </navigation>
