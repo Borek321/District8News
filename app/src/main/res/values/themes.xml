@@ -13,9 +13,50 @@
         <item name="android:statusBarColor" tools:targetApi="l">@color/white</item>
         <item name="android:windowLightStatusBar">true</item>
         <!-- Customize your theme here. -->
+        <item name="android:textViewStyle">@style/InterTextViewStyle</item>
+        <item name="buttonStyle">@style/InterButtonStyle</item>
     </style>
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.MaterialComponents.Dark.ActionBar" />
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.MaterialComponents.Light" />
+
+    <style name="InterTextViewStyle" parent="Widget.AppCompat.TextView">
+        <item name="android:fontFamily">@font/inter_font_family</item>
+    </style>
+
+    <style name="InterButtonStyle" parent="Widget.AppCompat.Button">
+        <item name="android:fontFamily">@font/inter_font_family</item>
+    </style>
+
+    <style name="InterTextViewStyle.Headline">
+        <item name="android:textSize">17sp</item>
+        <item name="fontWeight">600</item>
+        <item name="lineHeight">20dp</item>
+    </style>
+
+    <style name="InterTextViewStyle.Body1">
+        <item name="android:textSize">15sp</item>
+        <item name="fontWeight">500</item>
+        <item name="lineHeight">20dp</item>
+    </style>
+
+    <style name="InterTextViewStyle.Body2">
+        <item name="android:textSize">15sp</item>
+        <item name="fontWeight">400</item>
+        <item name="lineHeight">20dp</item>
+    </style>
+
+    <style name="InterTextViewStyle.Caption1">
+        <item name="android:textSize">12sp</item>
+        <item name="fontWeight">600</item>
+        <item name="lineHeight">16dp</item>
+    </style>
+
+    <style name="InterTextViewStyle.Caption2">
+        <item name="android:textSize">12sp</item>
+        <item name="fontWeight">400</item>
+        <item name="lineHeight">16dp</item>
+    </style>
+
 </resources>
