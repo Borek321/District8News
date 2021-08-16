@@ -1,0 +1,2 @@
+rootProject.name = "District8News"
+include ':app'
