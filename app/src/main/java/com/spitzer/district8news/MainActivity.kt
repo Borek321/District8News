@@ -5,7 +5,9 @@ import android.os.Bundle
 import android.view.View
 import com.spitzer.district8news.databinding.MainActivityBinding
 import com.spitzer.district8news.ui.main.MainFragment
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: MainActivityBinding
