@@ -11,17 +11,17 @@ import com.spitzer.district8news.databinding.PostItemBinding
 import com.squareup.picasso.Picasso
 
 class PostAdapter(
-    private var items: ArrayList<Post>,
     private val drawableFallbackImage: Drawable
 ) : RecyclerView.Adapter<PostAdapter.ViewHolder>() {
 
-    lateinit var onItemClick: (Post) -> Unit
+    private var items: ArrayList<Post> = arrayListOf()
+    lateinit var onItemClick: (Int) -> Unit
 
     override fun onCreateViewHolder(parent: ViewGroup, p1: Int): ViewHolder {
         val item =
             PostItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ViewHolder(item).listenToClick { position, _ ->
-            onItemClick(items[position])
+            onItemClick(position)
         }
     }
 
@@ -33,7 +33,7 @@ class PostAdapter(
         holder.bind(items[position])
     }
 
-    fun onItemClickFunction(itemClickFunction: (Post) -> Unit) {
+    fun onItemClickFunction(itemClickFunction: (Int) -> Unit) {
         onItemClick = itemClickFunction
     }
 
@@ -46,11 +46,11 @@ class PostAdapter(
         private val itemBinding: PostItemBinding
     ) : RecyclerView.ViewHolder(itemBinding.root) {
         fun bind(item: Post) {
-            itemBinding.postTitle.text = item.title.toString()
+            itemBinding.postTitle.text = item.title.rendered
             itemBinding.postLocation.text = "Delf -----"
             try {
                 Picasso.get()
-                    .load(item.featuredMedia.href)
+                    .load(item.featuredMedia.first().href)
                     .placeholder(R.drawable.ic_placeholder_image_24)
                     .error(R.drawable.ic_broken_image_24)
                     .into(itemBinding.postImage)

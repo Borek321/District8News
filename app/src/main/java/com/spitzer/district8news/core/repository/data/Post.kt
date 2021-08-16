@@ -17,8 +17,8 @@ data class Post(
     var date: Date,
     @SerializedName("featured_media")
     var featuredMediaId: Int = 0,
-    @SerializedName("wp:featured_media")
-    var featuredMedia: PostFeaturedMedia,
+    @SerializedName("wp:featuredmedia")
+    var featuredMedia: ArrayList<PostFeaturedMedia> = arrayListOf(),
     @SerializedName("title")
     var title: PostTitle,
     @SerializedName("content")

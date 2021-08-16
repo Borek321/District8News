@@ -11,5 +11,9 @@
     <color name="snackbarColor">#FF018786</color>
     <color name="featuredPostTitleBackgroundColor">#FF000000</color>
     <color name="neutralDarkGray">#949494</color>
+    <color name="brandBlueDelft">#1E73BE</color>
+
+
+
 
 </resources>
