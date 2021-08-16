@@ -1,4 +1,8 @@
 <resources>
     <string name="app_name">District8News</string>
     <string name="toolbar_filter">Filter</string>
+
+    <string name="snackbar_could_not_fetch">Could not fetch data. Please retry.</string>
+    <string name="snackbar_network_error">A network error occurred. Please retry.</string>
+    <string name="snackbar_error">An error occurred. Please retry.</string>
 </resources>

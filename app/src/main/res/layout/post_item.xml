@@ -18,7 +18,7 @@
         tools:src="@drawable/post_image" />
 
     <TextView
-        android:id="@+id/featuredPostTitle"
+        android:id="@+id/postTitle"
         style="@style/InterTextViewStyle.Body1"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -45,9 +45,9 @@
         tools:text="Delft - 28 juli 2021"
         android:textColor="@color/neutralDarkGray"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/featuredPostTitle"
+        app:layout_constraintStart_toStartOf="@+id/postTitle"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/featuredPostTitle"/>
+        app:layout_constraintTop_toBottomOf="@+id/postTitle"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

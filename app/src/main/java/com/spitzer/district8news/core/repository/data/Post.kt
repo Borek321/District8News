@@ -4,7 +4,6 @@ import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
 import kotlinx.parcelize.Parcelize
 import java.util.*
-import kotlin.collections.ArrayList
 
 @Parcelize
 data class Post(
@@ -17,7 +16,9 @@ data class Post(
     @SerializedName("date")
     var date: Date,
     @SerializedName("featured_media")
-    var featuredMedia: Int = 0,
+    var featuredMediaId: Int = 0,
+    @SerializedName("wp:featured_media")
+    var featuredMedia: PostFeaturedMedia,
     @SerializedName("title")
     var title: PostTitle,
     @SerializedName("content")
